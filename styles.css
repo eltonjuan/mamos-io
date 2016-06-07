@@ -6,5 +6,11 @@
 body {
   background: #fff;
   font-family: "Joystix";
-  font-size: 50px;
+  font-size: 12px;
+}
+
+#debug {
+  background: red;
+  position: absolute;
+  width: 800px;
 }

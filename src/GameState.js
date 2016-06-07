@@ -1,6 +1,6 @@
 import State from './State';
 import Ship from './Ship';
-import Name from './Name';
+import Word from './Word';
 import {SHIP_POINTS, FLAME_POINTS} from './points';
 
 export default class GameState extends State {
@@ -11,7 +11,8 @@ export default class GameState extends State {
     this.ship = new Ship(SHIP_POINTS, FLAME_POINTS, 2, 100, 100);
     this.ship.maxX = this.canvasWidth;
     this.ship.maxY = this.canvasHeight;
-    this.name = new Name(); 
+    this.name = new Word('lol', (this.canvasWidth / 2), (this.canvasHeight / 2)); 
+    
     this.generateLvl();
   }
   
@@ -22,10 +23,29 @@ export default class GameState extends State {
   }
   
   update() {
+    // check if bullets hit letters
+    // const letters = this.name.getLetters();
+    // letters.forEach(letter => {
+    //   this.bullets.forEach(bullet => {
+    //     if (bullet.x > letter.x && bullet.x < (letter.x + letter.rect[2]) &&
+    //       bullet.y > letter.y && bullet.y < (bullet.y + letter.rect[3])) {
+    //        alert('hi') 
+    //       }
+    //   });
+    // });
+    
+    const bulletList = document.getElementById('bullets');
+    bulletList.innerHTML = '';
+    this.bullets.forEach((bullet, i) => {
+      const li = document.createElement('li');
+      li.innerHTML = `Bullet ${i} - X:${bullet.x}, Y: ${bullet.y}`
+      bulletList.appendChild(li);
+    });
+    
+    // update all bullet positions
     for (var i = 0, len = this.bullets.length; i < len; i++) {
 			var b = this.bullets[i];
 			b.update();
-
 			// remove bullet if removeflag is setted
 			if (b.shallRemove) {
 				this.bullets.splice(i, 1);
@@ -59,11 +79,12 @@ export default class GameState extends State {
   }
   
   render(ctx) {
+    
     ctx.clearAll();
     for (var i = 0, len = this.bullets.length; i < len; i++) {
 			this.bullets[i].draw(ctx);
 		}
-    this.ship.draw(ctx)
+    this.ship.draw(ctx);
     this.name.draw(ctx);
   }
 }
