@@ -1,0 +1,10 @@
+@font-face {
+  font-family: 'Joystix';
+  src: url('fonts/joystix.ttf');
+}
+
+body {
+  background: #fff;
+  font-family: "Joystix";
+  font-size: 50px;
+}
