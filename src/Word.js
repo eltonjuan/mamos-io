@@ -29,12 +29,12 @@ export default class Word  {
     const textHeight = ctx.measureText(this.stringToDraw);
 
     this.letters.forEach((letter, i) => {
-      const x = this.posX + (55 * i);
-      const y = this.posY + (25 * i);
+      letter.x = this.posX + (55 * i);
+      letter.y = this.posY + (25 * i);  
       ctx.textBaseline = 'top';
       ctx.font = '69px Joystix';
       ctx.fillStyle = '#000';
-      ctx.fillText(letter.char, (x - textWidth), (this.posY - 69));   
+      ctx.fillText(letter.char, (letter.x - textWidth), (this.posY - 69));
       letter.rect = [letter.x, letter.y, ctx.measureText(letter.char).width, 69];
     });
   }

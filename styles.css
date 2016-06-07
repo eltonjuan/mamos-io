@@ -10,7 +10,8 @@ body {
 }
 
 #debug {
-  background: red;
+  background:green;
+  text-decoration: none;
   position: absolute;
   width: 800px;
 }

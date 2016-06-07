@@ -24,7 +24,14 @@ export default class GameState extends State {
   
   update() {
     // check if bullets hit letters
-    // const letters = this.name.getLetters();
+    const letters = this.name.getLetters();
+    letters.forEach((letter, i) => {
+      this.bullets.forEach((bullet) => {
+        if (bullet.x > letter.x && bullet.x < (letter.x + letter.rect[2])) {
+          letters.splice(i, 1);
+        }
+      });
+    });
     // letters.forEach(letter => {
     //   this.bullets.forEach(bullet => {
     //     if (bullet.x > letter.x && bullet.x < (letter.x + letter.rect[2]) &&
