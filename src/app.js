@@ -6,13 +6,12 @@ const init = () => {
 }
 
 const startGame = () => {
-  
+
 }
 
 window.onload = init;
 
 document.addEventListener('DOMContentLoaded', function(event) {
-  console.log('hello');
   const g = new Game();
   g.start();
 });

@@ -1,4 +1,5 @@
 import State from './State';
+import {States} from './gameStates';
 import Ship from './Ship';
 import Word from './Word';
 import {SHIP_POINTS, FLAME_POINTS} from './points';
@@ -11,8 +12,7 @@ export default class GameState extends State {
     this.ship = new Ship(SHIP_POINTS, FLAME_POINTS, 2, 100, 100);
     this.ship.maxX = this.canvasWidth;
     this.ship.maxY = this.canvasHeight;
-    this.name = new Word('lol', (this.canvasWidth / 2), (this.canvasHeight / 2)); 
-    
+    this.name = new Word('abc', (this.canvasWidth / 2), (this.canvasHeight / 2)); 
     this.generateLvl();
   }
   
@@ -25,22 +25,22 @@ export default class GameState extends State {
   update() {
     // check if bullets hit letters
     const letters = this.name.getLetters();
+    
     letters.forEach((letter, i) => {
-      this.bullets.forEach((bullet) => {
-        if (bullet.x > letter.x && bullet.x < (letter.x + letter.rect[2])) {
-          letters.splice(i, 1);
+      this.bullets.forEach((bullet, j) => {
+        if (bullet.x > letter.x - 55 && bullet.x < ((letter.x - 55) + letter.rect[2]))
+         {
+          if (bullet.y > (letter.y - 69) && bullet.y < ((letter.y- 69) + letter.rect[3])) {
+            letters.splice(i, 1);
+            this.bullets.splice(j, 1);
+          } 
         }
       });
     });
-    // letters.forEach(letter => {
-    //   this.bullets.forEach(bullet => {
-    //     if (bullet.x > letter.x && bullet.x < (letter.x + letter.rect[2]) &&
-    //       bullet.y > letter.y && bullet.y < (bullet.y + letter.rect[3])) {
-    //        alert('hi') 
-    //       }
-    //   });
-    // });
-    
+    if (letters.length === 0) {
+      console.log(States);
+      this.game.nextState = States.BOSS;
+    }
     const bulletList = document.getElementById('bullets');
     bulletList.innerHTML = '';
     this.bullets.forEach((bullet, i) => {

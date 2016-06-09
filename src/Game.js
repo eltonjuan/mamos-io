@@ -1,6 +1,7 @@
 import Canvas from './Canvas';
 import Input from './Input';
 import GameState from './GameState';
+import BossState from './BossState';
 import {States} from './gameStates';
 
 export default class Game {
@@ -17,12 +18,13 @@ export default class Game {
       if (this.nextState !== States.NO_CHANGE) {
         switch(this.nextState) {
           case States.GAME: 
-            
             this.currentState = new GameState(this);
             break;
           case States.END: 
             this.currentState = new EndState(this);
             break;
+          case States.BOSS:
+            this.currentState = new BossState(this);
         }
         this.nextState = States.NO_CHANGE;
       }
